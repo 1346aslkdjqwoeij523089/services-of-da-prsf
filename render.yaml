@@ -1,0 +1,32 @@
+databases:
+  - name: mongodb
+    plan: free
+    region: oregon
+
+services:
+  - type: web
+    name: fsrp-services-bot
+    env: docker
+    runtime: node
+    buildCommand: "npm install"
+    startCommand: "node index.js"
+    envVars:
+      - key: DISCORD_TOKEN
+        fromService:
+          name: fsrp-services-bot
+          key: DISCORD_TOKEN
+      - key: MONGODB_URI
+        fromDatabase:
+          name: mongodb
+          property: connectionString
+      - key: MONGO_DB_NAME
+        value: fsrp_services
+      - key: MONGO_COLLECTION
+        value: guildConfigs
+      - key: BOT_PREFIX_DEFAULT
+        value: PREFIX
+
+    # If you want HF text generation on boost messages, set:
+    # - key: HUGGINGFACE_API_TOKEN
+    #   value: "..."
+
