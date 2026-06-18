@@ -15,14 +15,18 @@ services:
         fromService:
           name: fsrp-services-bot
           key: DISCORD_TOKEN
-           - key: MONGODB_URI
+
+      - key: MONGODB_URI
         fromDatabase:
           name: mongodb
           property: uri
+
       - key: MONGO_DB_NAME
         value: fsrp_services
+
       - key: MONGO_COLLECTION
         value: guildConfigs
+
       - key: BOT_PREFIX_DEFAULT
         value: PREFIX
 
